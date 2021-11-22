@@ -1,0 +1,523 @@
+/*==========Fonts============*/ 
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap');
+@font-face {
+    font-family: proxima nova;
+    src: url(../fonts/proxima/Proxima\ Nova\ Font.otf);
+  }
+/*==========variable============*/ 
+:root{
+    --proxima:proxima nova, Helvetica, sans-serif;
+    --dark-orange:#a64e26;
+    --white:#FBF8F5;
+    --balck:#353535;
+}
+
+html,body.page-one{
+    color:#353535;
+    background: #FBF8F5;
+    font-family: 'Cormorant Garamond', serif;
+}
+.page-one a{
+    text-decoration: none;
+    color:unset;
+}
+ul{
+    list-style: none;
+}
+button{
+    border:none;
+    outline:none;
+    background: transparent;
+    overflow: visible;
+    text-transform: none;
+    -webkit-appearance: button;
+}
+.section{
+    margin: 10.5vw auto;
+}
+.sec-content-container{
+    margin-left: 3.5vw;
+    margin-right: 3.5vw;
+}
+.content-center{
+    text-align: center;
+}
+
+.bar{
+    display: block;
+    width: 30px;
+    height: 1px;
+    background: var(--white);
+    margin-bottom: 8px;
+    margin-top: 7.5px;
+}
+/*====Cursor animation====*/ 
+.cursor{
+    position: absolute;
+    pointer-events: none;
+    z-index: 5;
+    transform:translate(-50%,50%);
+    transition: transform .2s;
+}
+.cursor.cursor-large,
+.cursor.media-cursor{
+    transform: translateY(-70%) !important;
+    transform:translateX(-50%) !important;
+    margin-top: -20px;
+}
+.cursor-circle{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.cursor-circle span{
+    display: none;
+    font-family: var(--proxima);
+    letter-spacing: 1px;
+    color:var(--white);
+}
+.cursor.media-cursor .cursor-circle span{
+    display: block;
+}
+.cursor.cursor-large .cursor-circle,
+.cursor.media-cursor .cursor-circle{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--dark-orange);
+}
+.cursor.rtb .cursor-circle{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    background: var(--dark-orange);
+}
+/*==========Headeer============*/ 
+header{
+    background:#fff;
+    z-index: 10; 
+}
+
+/*===xxx=======Headeer=========xxx===*/ 
+
+
+/*==========Hero section============*/ 
+.hero-container{
+    position: relative;
+}
+.hero-img{
+    height: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+}
+.hero-img img{
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    object-fit: cover;
+    transform:scale(1);
+    transition: transform 1.5s;
+}
+
+.hero-title-container{
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+    width: 100%;
+}
+.hero-title-container .hero-title{
+    text-align: center;
+}
+.hero-title-container h1{
+    font-size: calc(30.75px + 2.25vw);
+    color:var(--white);
+    text-transform: uppercase;
+    font-weight: normal;
+    letter-spacing: 4px;
+}
+.hero-link-container{
+    position: absolute;
+    width: 100%;
+    bottom:0;
+}
+.hero-link-container .hero-link{
+    text-align: center;
+}
+.hero-link-container a{
+    display: inline-block;
+    text-align: center;
+    font-size: 15px;
+    font-family: var(--proxima);
+    color:#fff;
+    background: var(--dark-orange);
+    padding: 18.5px 57px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+/*===xxx=======Hero section=========xxx===*/ 
+
+/*==========our Approch============*/ 
+.approach-container{
+    margin: 10.5vw auto;
+}
+.approach-content{
+    width: 55.55%;
+    margin-left:auto;
+    margin-right: auto;
+}
+.approach-title{
+    font-size:24px ;
+    font-family: inherit;
+    font-weight: normal;
+    margin-bottom: 70px;
+}
+.approach-description{
+    font-size: calc(16px + 2vw);
+    color:#353535;
+    font-family: inherit;
+    font-weight: normal;
+}
+/*===xxx=======our Approch=========xxx===*/ 
+
+/*==========Five Wellness && sticky scrolling section============*/ 
+.fw-pillar-scroller{
+    color: var(--white);
+    position: relative;
+    margin-bottom: 10.35vw;
+}
+/*==========FW bg image============*/ 
+.fw-background{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+.fw-background-image{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.fw-background-image.alt{
+    transform: scale(1.25);
+    opacity: 0;
+    transition: all .5s;
+}
+.fw-background-image.alt.active{
+    transform: scale(1);
+    opacity: 1;
+}
+.fw-background-image::after{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #000;
+    opacity: .4;
+}
+.fw-bg-image-container{
+    height: 100%;
+    width: 100%;
+    background: #000;
+    overflow: hidden;
+    position: relative;
+}
+.fw-bg-image-container img{
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    transition: opacity 1s cubic-bezier(.215,.61,.355,1),transform 1s cubic-bezier(.215,.61,.355,1);
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+.fw-bg-image-container img.zoom-out{
+    transform: scale(1);
+}
+/*==========FW scroller content============*/ 
+.fw-scroller-content{
+    position: relative;
+    width: 70.37037%;
+    margin: -100vh auto 0;
+    text-align: center;
+    padding: 10.35vw 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.fw-scroller-content::-webkit-scrollbar{
+    width: 0;
+}
+.fw-scroller-content-title{
+    line-height: 1.32;
+    font-family: "Cormorant Garamond",serif;
+    font-size: calc(18.25px + .35vw);
+    margin-bottom: 5.175vw;
+    font-weight: normal;
+}
+
+.fw-scroller-pillar{
+    padding-bottom: calc(5.175vw + 1rem);
+    display: block;
+    text-decoration: none;
+    position: relative;
+    text-decoration: none;
+    color: unset;
+    transition: opacity .33s ease,transform .33s ease-in-out;
+}
+
+.fw-scroller-pillar:hover{
+    color:  unset;
+    text-decoration: none;
+}
+
+.fw-scroller-pillar.blur{
+    opacity: 0.3;
+}
+
+
+.fw-scroller-pillar-title{
+    line-height: 1.07;
+    font-family: "Cormorant Garamond",serif;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    font-size: calc(24px + 1.8vw);
+    transition: opacity .33s ease,transform .33s ease-in-out;
+}
+.fw-scroller-pillar-description{
+    position: absolute;
+    bottom: 5.175vw;
+    left: 0;
+    width: 100%;
+    transform: translateY(100%);
+    opacity: 0;
+    transition: opacity .33s ease;
+    font-size: calc(18.25px + .35vw);
+    margin: 0;
+    line-height: 1.32;
+    font-family: "Cormorant Garamond",serif;
+}
+.fw-scroller-pillar.active .fw-scroller-pillar-title{
+    transform: translateY(-1rem);
+}
+.fw-scroller-pillar.active .fw-scroller-pillar-description{
+    opacity: 1;
+}
+/*===xxx=======Five Wellness && sticky scrolling section=========xxx===*/ 
+
+
+/*==========Foundation of wellness============*/ 
+/*==========FoW header============*/ 
+.foundeation-of-wellness{
+    position:relative;
+    overflow:hidden;
+    margin-bottom: 10.5vw;
+}
+.fow-contianer{
+    overflow:visible;
+}
+.fow-header{
+    margin: 10.5vw auto;
+    width: 55.55%;
+    text-align: center;
+    margin-top: 0 !important;
+}
+.fow-header-title{
+    font-size:24px ;
+    font-family: inherit;
+    font-weight: normal;
+    margin-bottom: 70px;
+}
+.fow-header-description{
+    font-size: calc(16px + 2vw);
+    color:#353535;
+    font-family: inherit;
+    font-weight: normal;
+}
+/*==========FoW Media============*/ 
+.fow-media {
+    width: 85.18519%;
+    margin: 0 auto 10.35vw auto;
+    position: relative;
+}
+.fow-media-container{
+    width: 100%;
+    font-family: "Cormorant Garamond",serif;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: none;
+    color: currentColor;
+    cursor: pointer;
+}
+.fow-media-video{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition: opacity 1s;
+    padding-bottom: 56.25%;
+}
+.fow-media-video iframe{
+    opacity: 1;
+    pointer-events: none;
+    width: 177.778vh;
+    height: 56.25vw;
+    vertical-align: middle;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-height: 100%;
+    min-width: 100%;
+    border: 0;
+    transform: translate(-50%,-50%);
+    transition: opacity .5s ease;
+}
+/*==========FoW Bottom content============*/ 
+.fow-btm-content{
+    width: 33.33333%;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+}
+.fow-content h3,
+.fow-content h6{
+    font-size: calc(19.5px + .9vw);
+    line-height: 1.07;
+    font-family: inherit;
+    font-weight: normal;
+    margin-top: 3.4155vw;
+}
+.fow-content h6{
+    font-size: calc(18.5px + .35vw);
+}
+.fow-content p{
+    margin-top: 20px;
+    font-size: 23px;
+    color:var(--balck);
+    font-family: inherit;
+}
+.fow-content a{
+    font-family: var(--proxima);
+    color:var(--dark-orange);
+    margin-top: 20px;
+    display: inline-block;
+    padding-bottom: 3px;
+    display: inline-flex;
+    align-items: center;
+}
+.fow-content a.our-team::after{
+    content: "";
+    background-image: url(../image/arrow.svg);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: contain;
+    transition: transform .33s ease-in-out;
+    display: block;
+    margin-left: 10px;
+    width: 20px;
+    height: 17px;
+    position: relative;
+    margin-top: 5px;
+}
+.fow-content a.tel-num{
+    padding-bottom: 6px;
+}
+.fow-content:first-child,
+.fow-content .tel-num-container{
+    margin-top: 0 !important;
+}
+.fow-content-img{
+    display: flex;
+    justify-content: space-between;
+}
+.fow-content-img-1{
+    transform: translateY(-2vmax);
+    position: absolute;
+    width: 66.66667%;
+    will-change: transform;
+    top: 0;
+    left: -34.5vw;
+    transition: transform 1.5s;
+}
+.fow-content-img-2{
+    transform: translateY(-0.04vmax);
+    position: absolute;
+    width: 66.66667%;
+    will-change: transform;
+    bottom: 0;
+    right: -34.5vw;
+    transition: transform 1.5s;
+}
+.fow-content-img-container{
+    padding-top: 125%;
+    overflow: hidden;
+    position: relative;
+}
+.fow-content-img img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+}
+/*===xxx=======Foundation of wellness=========xxx===*/ 
+
+
+/*==========Ready to begain============*/
+.ready-to-begain-link {
+    display: block;
+    cursor: pointer;
+    padding-bottom: 0.2em;
+}
+.ready-to-begain-content{
+    width: 85.18519%;
+    margin: 0 auto 10.35vw auto;
+    padding: 100px 0;
+    display: block!important;
+    text-decoration: none;
+    color: #fbf8f5;
+    text-align: center;
+    background: var(--dark-orange);
+}
+.ready-to-begain-title{
+    font-family: inherit;
+    font-weight: normal;
+    line-height: 1.05;
+    font-size:calc(21.5px + 1.05vw);
+    width: 82.6087%;
+    margin: 0 auto;
+}
+.ready-to-begain-btn{
+    font-size: calc(12.5px + .1vw);
+    line-height: 1.21;
+    font-family: "Proxima Nova",Helvetica,sans-serif;
+    text-transform: uppercase;
+    letter-spacing: .2em;
+    margin-top: 30px;
+    color:var(--white);
+    display: inline-flex;
+    align-items: center;
+}
+.ready-to-begain-btn svg{
+    margin-left: 10px;
+    width: 19px;
+    height: auto;
+}
+/*===xxx=======Ready to begain=========xxx===*/
+
+
+/*==========Footer============*/
+
+/*===xxx=======Footer=========xxx===*/
