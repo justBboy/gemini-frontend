@@ -59,6 +59,9 @@
     figure {
         font-size: calc(21px + 1.8vw);
     }
+    .hero-title {
+        font-size: calc(30.75px + 2.25vw);
+    }
 }
 
 @media (min-width: 1025px){

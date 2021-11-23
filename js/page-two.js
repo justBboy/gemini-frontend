@@ -1,4 +1,44 @@
 
+function HeroTitleMoveReplace(words){
+	this.$container = $(".hero-title");
+	this.currentWordIndex = 0;
+	this.words = words;
+
+	this.initialize = () => {
+		setInterval(() => {
+			console.log("hello")
+			if (this.currentWordIndex >= this.words.length-1)
+				this.currentWordIndex = 0;
+			else
+				this.currentWordIndex++
+			const currentWord = this.words[this.currentWordIndex];
+			this.changeAnim(currentWord);
+		}, 4000)
+	}
+
+	this.changeAnim = (word) => {
+		this.setMoveOut();
+		const replaceWord = this.replaceWord;
+		const moveIn = this.moveIn;
+		this.$container.on("transitionend webkitTransitionEnd oTransitionEnd", function(){
+			replaceWord(word);
+			moveIn();
+		})
+	}
+
+	this.setMoveOut = () => {
+		this.$container.addClass("move-out");
+	}
+
+	this.moveIn = () => {
+		this.$container.removeClass("move-out");
+	}
+
+	this.replaceWord = (word) => {
+		this.$container.find("span").text(word);
+	}
+}
+
 function PScroll(){
 	this.swiper = new Swiper(".swiper-container", {
 					slidesPerView: "auto",
@@ -248,12 +288,14 @@ const locationArea = new LocationsArea();
 const baseStory = new BaseStory();
 const imageParallax = new ImageParallax();
 const imageZoom = new ImageZoomOut();
+const headerTitleMoveReplace = new HeroTitleMoveReplace(['Joy', 'Health', 'Peace', 'Purpose', 'Energy'])
 
 pScroll.initialize();
 locationArea.initialize();
 baseStory.initialize();
 imageParallax.initialize();
 imageZoom.initialize();
+headerTitleMoveReplace.initialize();
 
 $(window).scroll(function(){
 	const y = $(window).scrollTop();
