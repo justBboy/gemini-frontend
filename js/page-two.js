@@ -6,7 +6,6 @@ function HeroTitleMoveReplace(words){
 
 	this.initialize = () => {
 		setInterval(() => {
-			console.log("hello")
 			if (this.currentWordIndex >= this.words.length-1)
 				this.currentWordIndex = 0;
 			else
@@ -39,46 +38,110 @@ function HeroTitleMoveReplace(words){
 	}
 }
 
-function PScroll(){
-	this.swiper = new Swiper(".swiper-container", {
-					slidesPerView: "auto",
-					allowTouchMove: false
-				})
+function PScroll2(){
+	this.$swiperWrapper = $(".p-scroll_nav-items");
 	this.$scrollContainer = $(".p-scroll_nav");
 	this.containerStartY = this.$scrollContainer.position().top;
 	this.containerEndY = this.containerStartY + this.$scrollContainer.height();
+	this.upperBound = this.$swiperWrapper[0].getBoundingClientRect().width - window.innerWidth;
+	this.lowerBound = 0;
+	this.progress = 0;
+	this.target = 0;
+	this.ease = 0.02;
+	this.startY
+	this.sliderWidth = null;
+	this.itemWidth = null;
+	this.scrollOffset = 800;
+
+	this.lerp = (start, end, t) => {
+		return start * (1-t) + end * t;
+	}
+
+	this.setTransform = (transform) => {
+		if (this.$swiperWrapper)
+			this.$swiperWrapper.css("transform", transform);
+	}
+	this.initialize = () =>{
+		this.sliderWidth = this.upperBound;
+		this.itemWidth = this.sliderWidth / this.$swiperWrapper.children().length;
+	}
+
+	this.update = () => {
+		const currentY = window.scrollY;
+		const scrollingDown = currentY > this.currentWinScrollY;
+		const noScroll = currentY === this.currentWinScrollY;
+		this.currentWinScrollY = currentY;
+		const startScroll = this.containerStartY;
+		const endScroll = this.containerEndY + this.scrollOffset;
+		
+			if(currentY <= endScroll && currentY >= startScroll){
+				if(scrollingDown && !noScroll){
+					console.log("scrolling down")
+					if(!(this.current >= this.upperBound)){
+						this.progress = parseFloat(this.lerp(this.progress, this.target, this.ease)).toFixed(2);
+						this.target = currentY;
+						this.setTransform(`translateX(-${this.progress}px)`)
+					}
+				}
+				else if(!noScroll){
+					console.log("scrolling up")
+				}
+		}
+		requestAnimationFrame(this.update);
+	}
+
+}
+
+function PScroll(){
+	this.swiper = new Swiper(".swiper-container", {
+					slidesPerView: "auto",
+					allowTouchMove: false,
+				})
+	this.$scrollContainer = $(".p-scroll_nav");
+	this.containerStartY = this.$scrollContainer.position().top;
+	this.containerEndY = this.containerStartY + this.$scrollContainer.height() - window.innerHeight;
 	this.currentWinScrollY = $(window).scrollTop();
 	this.scrollProgress = 0;
-	this.waitOffset = 800;
+	this.scrollFields = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0];
+	this.ease = 0.02;
+	this.scrollSpeed = 300;
+	this.waitOffset = 600;
 
 	this.initialize = () => {
 		this.swiper.setProgress(this.scrollProgress, 500);
+		console.log(window.innerHeight)
 	}
 
-	this.update = (y) => {
-		const scrollOffset = 200;
-		const scrollingDown = y > this.currentWinScrollY;
-		this.currentWinScrollY = y;
-		const startScroll = this.containerStartY - scrollOffset;
-		const endScroll = this.containerEndY + scrollOffset;
+	this.lerp = (start, end, t) => {
+		return start * (1-t) + end * t;
+	}
 
+
+	this.update = (y) => {
+		const scrollingDown = y > this.currentWinScrollY;
+		const startScroll = this.containerStartY;
+		const endScroll = (this.containerEndY - this.waitOffset) - window.innerHeight;
+
+		if(!this.scrollProgress)
+			this.scrollProgress = 0;
+
+		console.log(this.scrollProgress);
 		if (scrollingDown){
 			// checking if user is scrolling down and scroll progress isn't complete
 			if(y >= startScroll && this.scrollProgress < 1){
-				const currentScroll = ( (y/(this.containerEndY - this.waitOffset)) * 1)
+				const currentScroll = (y-innerHeight)/endScroll * 1;
 				this.scrollProgress = currentScroll;
-				this.swiper.setProgress(this.scrollProgress, 500)
+				this.swiper.setProgress(this.scrollProgress, this.scrollSpeed)
 			}	
 		}
 		else{
-				if(y <= this.containerEndY - this.waitOffset && this.scrollProgress > 0){
-					const currentScroll = ((y - this.containerStartY)/(this.containerEndY)) * 1;
-					console.log(currentScroll)
+				if(y <= this.containerEndY && this.scrollProgress > 0){
+					const currentScroll = (y-innerHeight-(this.waitOffset*2))/endScroll * 1;
 					this.scrollProgress = currentScroll;
-					this.swiper.setProgress(this.scrollProgress, 500)
+					this.swiper.setProgress(this.scrollProgress, this.scrollSpeed)	
 				}
 		}
-		
+		this.currentWinScrollY = y;
 	}
 }
 
@@ -107,9 +170,7 @@ function LocationsArea(){
 		const $currentEl = $(`.locations-image .image-caption[data-id=${target}]`);
 
 		$activeEl.removeClass("active");
-		setTimeout(function(){
-			$currentEl.addClass("active");
-		}, 500)
+		$currentEl.addClass("active");
 	}
 
 	this.replaceBackgroundImages = (target) => {
@@ -125,6 +186,9 @@ function LocationsArea(){
 			if (window.innerWidth < 1024){
 				this.$locationsContainer.css("display", "none");
 				this.$carouselContainer.css("display", "block")
+			}else{
+				this.$locationsContainer.css("display", "flex");
+				this.$carouselContainer.css("display", "none")
 			}
 		}
 	}
@@ -184,7 +248,6 @@ function BaseStory(){
 		if(scrollingDown){
 			if(y >= startScroll && this.scrollProgress <= 10){
 				const currentScroll = -((y/endScroll) * 10)
-				console.log(currentScroll);
 				this.setNewScroll(currentScroll);
 			}	
 		}
@@ -247,7 +310,6 @@ function ImageZoomOut(){
 	this.scale = 1.02;
 	this.scaleUpperBound = 2.75;
 	this.scrollOffset = 800;
-	this.waitOffset = 200;
 	this.zoomComplete = false;
 
 
@@ -275,13 +337,12 @@ function ImageZoomOut(){
 		}
 		else{
 			if(y <= endScroll && this.scale >= 1.02 && !this.zoomComplete){
-				const currentScroll = this.scale - this.scaleAdd;
+				const currentScroll = this.scale-this.scaleAdd;
 				this.updateScale(currentScroll);
 			}
 		}
 	}	
 }
-
 
 const pScroll = new PScroll();
 const locationArea = new LocationsArea();
@@ -299,8 +360,8 @@ headerTitleMoveReplace.initialize();
 
 $(window).scroll(function(){
 	const y = $(window).scrollTop();
-	pScroll.update(y);
 	baseStory.update(y)
 	imageZoom.update(y)
 	imageParallax.update(y);
+	pScroll.update(y)
 })

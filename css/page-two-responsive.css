@@ -75,4 +75,14 @@
 
 }
 
+@media (max-width:  1200px){
+    .hero-section-2{
+        height:  calc(100vh - 74px);
+    }
+}
 
+@media (min-width:  1439px){
+    .hero-section-2{
+        height: calc(100vh - 105.5px);
+    }
+}

@@ -221,6 +221,7 @@
     display: inline-flex;
     align-items: center;
     will-change: transform;
+    transition-timing-function: linear;
 }
 
 .p-scroll_nav-link{
@@ -708,7 +709,7 @@
 
 .locations-image .image-caption{
     opacity: 0;
-    transform: scale(1.0) translateY(100%);
+    transform: translateY(100%);
     transition: all 0.5s ease-in;
 }
 
@@ -719,8 +720,8 @@
 }
 
 .locations-image .image-caption.active{
+    transition-delay: 0.5s;
     opacity: 1;    
-    transform: scale(1.0) translateY(100%);
 }
 
 .locations-image .base_image img.active {
